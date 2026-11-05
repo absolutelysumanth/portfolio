@@ -1,625 +1,331 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sumanth's Personal Portfolio" />
-	<meta name="keywords" content="blog, business card, creative, creative portfolio, cv theme, online resume, personal, portfolio, professional cv, responsive portfolio, resume, resume theme, vcard" />
-	<meta name="author" content="Sumanth">
-    <title>Sumanth N</title>
-  <!--favicon-img--> 
-   <link rel="icon" type="image/png" href="images/favicon.png">
-   <!--favicon-img-->
-   <!--main css file should not be removed -->
-    <link rel="stylesheet" href="css/index.css">
-    <!--main css file-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
-</head>
-<body>
-    <!--contains all the div-->
-    <div id="all">
-    <!--mouse  follower-->
-        <div class="cursor"></div>
-    <!--mouse  follower-->
-    <!--loader-->
-        <div id="loader">
-            <span class="color">Sumanth</span>N 
-        </div>
-    <!--loader-end-->
-    <!--link-screen-->
-        <div id="breaker">
-        </div>
-        <div id="breaker-two">
-        </div>
-    <!--link-screen-->
-        <!--Main-Section-->
-        <!--Navigator-fullscreen-->
-        <div id="navigation-content">
-            <div class="logo">
-                <img src="images/sumanth-logo.jpg" alt="logo">
-            </div>
-            <div class="navigation-close">
-                <span class="close-first"></span>
-                <span class="close-second"></span>
-            </div>
-            <div class="navigation-links">
-                <a href="#" data-text="HOME" id="home-link" >HOME</a>
-                <a href="#" data-text="ABOUT" id="about-link" >ABOUT</a>
-                <!-- <a href="#" data-text="BLOG" id="blog-link" >BLOG</a> -->
-                <a href="#" data-text="PORTFOLIO" id="portfolio-link" >PORTFOLIO</a>
-                <a href="#" data-text="CONTACT" id="contact-link" >CONTACT</a>
-            </div>
-        </div>
-        <!--Navigator-Fullscreen END-->
-          <!--Home Page-->
-        <!--Menubar-->
-        <div id="navigation-bar">
-            <img src="images/sumanth-logo.jpg" alt="logo">
-            <div class="menubar">
-                <span class="first-span"></span>
-                <span class="second-span"></span>
-                <span class="third-span"></span>
-            </div>
-        </div>
-        <!--Menubar End-->
-          <!--Header-->
-        <div id="header">
-            <div id="particles"></div>
-              <!--Social Media Links-->
-            <div class="social-media-links">
-               <a href="https://www.instagram.com/absolutelysumanth?igsh=MTJjaTNtaGVlY3FqYg=="><img src="images/instagram logo.png" class="social-media" alt="instagram-logo"></a><!--Your instagram homepage link inser in place of "#"-->
-                <!-- <a href="#"><img src="images/facebook logo.png" class="social-media" alt="facebook-logo"></a> -->
-                <a href="https://www.linkedin.com/in/sumanth-n-7a4ab5185?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="images/linkedin logo.png" class="social-media" alt="linkedin-logo"></a>
-                <!-- <a href="#"><img src="images/twitter logo.png" class="social-media" alt="twitter-logo"></a> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0b0c0e" />
+    <meta
+      name="description"
+      content="Sumanth N — a software engineer building software, automation tools, and interactive systems."
+    />
+    <title>Sumanth N — Software Engineer</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/index.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Sumanth N home"
+        >S<span>.</span></a
+      >
+      <div class="header-actions">
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <span></span><span></span></button
+        ><a class="contact-button" href="#contact"
+          >LET’S TALK <span aria-hidden="true">↗</span></a
+        >
+      </div>
+      <nav class="site-menu" id="site-menu" aria-label="Main navigation" hidden>
+        <a href="#home" aria-current="page"><span>01</span>Home</a
+        ><a href="#portfolio"><span>02</span>Work</a
+        ><a href="#process"><span>03</span>Process</a
+        ><a href="#about"><span>04</span>About</a
+        ><a href="#contact"><span>05</span>Contact</a>
+        <p>BUILT WITH CURIOSITY.</p>
+      </nav>
+    </header>
 
-            </div>
-            <!--Social Media Links end-->
-            <div class="header-content">
-                <div class="header-content-box">
-                <div class="firstline"><span class="color">Sumanth </span>N</div>
-                <div class="secondline">
-                I'm a
-            <span class="txt-rotate color" data-period="1200"data-rotate='[ " web-developer.", " Solution Provider.", " Freelancer." ]'></span>
-            <span class="slash">|</span>
-        </div>
-                    <div class="contact">
-                <a href="Mailto:sumanthnamadevaofficial@gmail.com"><img src="images/mail.png" alt="email-pic" class="contactpic"></a><!--Your email Id write in place of "#"-->
-                <!-- <a href="Tel:#"><img src="images/call.png" alt="phone-pic" class="contactpic"></a> -->
-                    </div>    
-            </div>
-            </div>
-            <!--header image-->
-            <!-- <div class="header-image">
-            <img src="images/man.jpg" alt="logo">
-            </div> -->
-            <!--header image end-->
-        </div>
-           <!--Header End-->
-        <!--HomePage End-->
-        <!--Main-Section End-->
-        <!--about-->
-        <div id="about">
-            <!-- <div class="color-changer">
-            <div class="color-panel">
-                <img src="images/gear.png" alt="">
-            </div>
-            <div class="color-selector">
-                <div class="heading">Custom Colors</div>
-                <div class="colors">
-                    <ul >
-                    <li>
-                        <a href="#0" class="color-red " title="color-red"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-purple" title="color-purple"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-malt" title="color-malt"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-green" title="color-green"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-blue" title="color-blue"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-orange" title="color-orange"></a>
-                    </li>
-                    </ul>
-                </div>
-            </div>
-            </div> -->
-            <!--about content-->
-            <div id="about-content">
-                <div class="about-header">
-                    About <span class="color">Me</span>
-                    <span class ="header-caption">Get to Know <span class="color"> me.</span></span>
-                </div>
-                <div class="about-main">
-            <div class="about-first-paragraph wow">
-            <!--about description-->
-               <span class="about-first-line">
-                    I'm creative 
-                    <span class="color">web developer</span>
-                     based in Shivamogga, INDIA </span>
-                     <br>
-               <span class="about-second-line"> With 2 years of experience as a professional Web developer, I have acquired the skills and knowledge necessary to make your project a success. I enjoy every step while working.</span>
-               <!-- <div class="cv">
-                <a href="#"><button>Download <span class="colors">CV</span></button></a>
-            </div> -->
-            </div>
-            <!--about picture-->
-            <!-- <div class="about-img">
-                <img src="images/about.jpg" alt="Your Image">
-            </div> -->
-            </div>
-    
-            </div>
-            <!--services start-->
-            <div id="services">
-                <!-- <div class="color-changer">
-                    <div class="color-panel">
-                        <img src="images/gear.png" alt="">
-                    </div>
-                    <div class="color-selector">
-                        <div class="heading">Custom Colors</div>
-                        <div class="colors">
-                            <ul >
-                            <li>
-                                <a href="#0" class="color-red " title="color-red"></a>
-                            </li>
-                            <li>
-                                <a href="#0" class="color-purple" title="color-purple"></a>
-                            </li>
-                            <li>
-                                <a href="#0" class="color-malt" title="color-malt"></a>
-                            </li>
-                            <li>
-                                <a href="#0" class="color-green" title="color-green"></a>
-                            </li>
-                            <li>
-                                <a href="#0" class="color-blue" title="color-blue"></a>
-                            </li>
-                            <li>
-                                <a href="#0" class="color-orange" title="color-orange"></a>
-                            </li>
-                            </ul>
-                        </div>
-                    </div>
-                    </div> -->
-            <!--services header-->
-                    <div class="services-heading wow">
-                        <span class="color">My</span> Services
-                    </div>
-            <!--services header end-->
-            <!--services content-->
-                    <div class="services-content">
-                           <div class="service-one service wow">
-                               <div class="service-img">
-                               <img src="images/coding.png" alt="service-one">
-                               </div>
-                               <div class="service-description">
-                                <h2>Web Designing</h2>
-                                <p>Passionate about creating intuitive and responsive websites that offer seamless user experiences across all devices.</p>
-                               </div>
-                           </div>
-                           <!-- <div class="service-two service wow">
-                               <div class="service-img">
-                               <img src="images/instagram.png" alt="service-two">
-                               </div>
-                               <div class="service-description">
-                                <h2>Social Media</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quibusdam possimus</p>
-                               </div>
-                           </div> -->
-                           <div class="service-three service wow">
-                            <div class="service-img">
-                               <img src="images/bulb.png" alt="service-three">
-                            </div>
-                            <div class="service-description">
-                                <h2>Creative Design</h2>
-                                <p>Providing innovative IT solutions that drive business efficiency and streamline operations for clients of all sizes.</p>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <!--services content end-->
-            <!--services end-->
-            <div id="skills">
-                <div class="skills-header">
-                     My <span class="color"> Skills</span>
-                </div>
-                <div class="skills-content " style="text-align: center;">
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                        HTML/CSS
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="html-progress wow">95%</div>
-                    </div>
-                    </div>
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                      Javascript
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="js-progress wow">90%</div>
-                    </div>
-                    </div>
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                        Python
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="adobe-progress wow">83%</div>
-                    </div>
-                    </div>
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                        PHP
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="php-progress wow">87%</div>
-                    </div>
-                    </div>
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                        Flutter
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="jquery-progress wow">94%</div>
-                    </div>
-                    </div>
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                    <div class="html">
-                        Prompt Engineering
-                    </div>
-                        </div>
-                    <div class="html-prog wow prog">
-                 <div class="seo-progress wow">84%</div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-    <!--copyright-section You Can Remove After Downloading-->
-            <div class="footer">
-             <div class="footer-text">
-                 <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Sumanth
-             </div>
-            </div>
-    <!--copyright-section-->
-        </div>
-        <!--about end-->
-        <!--portfolio-->
-        <div id="portfolio">
-            <!-- <div class="color-changer">
-                <div class="color-panel">
-                    <img src="images/gear.png" alt="">
-                </div>
-                <div class="color-selector">
-                    <div class="heading">Custom Colors</div>
-                    <div class="colors">
-                        <ul >
-                        <li>
-                            <a href="#0" class="color-red " title="color-red"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-purple" title="color-purple"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-malt" title="color-malt"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-green" title="color-green"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-blue" title="color-blue"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-orange" title="color-orange"></a>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
-                </div> -->
-            <div class="portfolio-header"> <span class="color"> My </span> Portfolio
-            <span class ="header-caption"> Some Of My <span class="color"> Works</span></span></div>
-             <div id="portfolio-content">
-                 <div class="portfolio portfolio-first">
-                     <div class="portfolio-image">
-                        <img src="images/portfolio-first.jpg" alt="portfolio-first">
-                     </div>
-                     <div class="portfolio-text">
-                         <h2>Chatting App</h2>
-                         <p>A chatting app enables instant communication through text, voice, or video, allowing users to stay connected and share media in real time. Key features often include group chats, file sharing, and privacy options, making it essential for personal and professional use.</p>
-                         <!-- <div class="button"><a href="#"><button><span class="index"> View Project<i class="gg-arrow-right"></i></span></button></a></div> -->
-                     </div>
-                 </div>
-                 <div class="portfolio portfolio-second">
-                    <div class="portfolio-image">
-                        <img src="images/portfolio-second.jpg" alt="portfolio-second">
-                    </div>
-                    <div class="portfolio-text">
-                        <h2>Web Designing</h2>
-                        <p>Web design is the art of creating visually appealing, user-friendly websites, combining layout, color, and interactivity. It balances aesthetics with usability, ensuring sites work well across devices and communicate a brand's message effectively.</p>
-                        <!-- <div class="button"><a href="#"><button><span class="index"> View Project<i class="gg-arrow-right"></i></span></button></a></div> -->
-                    </div>
-                </div>
-             
-                <div class="portfolio portfolio-third">
-                    <div class="portfolio-image">
-                        <img src="images/portfolio-third.jpg" alt="portfolio-third">
-                    </div>
-                    <div class="portfolio-text">
-                        <h2>UI Designing</h2>
-                        <p>UI/UX design focuses on enhancing user experience and interface design for digital products. UI (User Interface) involves crafting visually appealing layouts, buttons, and icons, while UX (User Experience) centers on creating smooth, intuitive, and enjoyable interactions. Together, they ensure digital products are both attractive and easy to use, maximizing user satisfaction.</p>
-                        <!-- <div class="button"><a href="#"><button><span class="index"> View Project<i class="gg-arrow-right"></i></span></button></a></div> -->
-                    </div>
-                </div>
-                <div class="portfolio portfolio-fourth">
-                    <div class=" portfolio-image">
-                        <img src="images/portfolio-fourth.jpg" alt="portfolio-fourth">
-                    </div>
-                    <div class="portfolio-text">
-                        <h2>Business Solutions</h2>
-                        <p>Business solutions are services or software designed to address specific challenges, improve efficiency, and support growth in organizations. They may include tools for project management, customer relationship management (CRM), and financial planning. These solutions help businesses streamline operations, make data-driven decisions, and achieve their strategic goals.</p>
-                        <!-- <div class="button"><a href="#"><button><span class="index"> View Project<i class="gg-arrow-right"></i></span></button></a></div> -->
-                    </div>
-                </div>
-                 </div>
-                    <!--copyright-section You Can Remove After Downloading-->
-            <div class="footer">
-                <div class="footer-text">
-                    <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Sumanth
-                </div>
-               </div>
-       <!--copyright-section-->
-             </div>
-        <!--portfolio end-->
-        <!--blog-->
-        <div id="blog">
-            <!-- <div class="color-changer">
-                <div class="color-panel">
-                    <img src="images/gear.png" alt="">
-                </div>
-                <div class="color-selector">
-                    <div class="heading">Custom Colors</div>
-                    <div class="colors">
-                        <ul >
-                        <li>
-                            <a href="#0" class="color-red " title="color-red"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-purple" title="color-purple"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-malt" title="color-malt"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-green" title="color-green"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-blue" title="color-blue"></a>
-                        </li>
-                        <li>
-                            <a href="#0" class="color-orange" title="color-orange"></a>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
-                </div> -->
-        <div class="blog-header"> Blogs</span>
-            <span class ="header-caption"> My Latest <span class="color"> blog posts.</span></span></div>
-            <div class="blog-content">
-                 <div class="blogs">
-                     <a href="#">
-                     <div class="img">
-                        <img src="images/post-one.jpg" alt="blog-one">
-                        <div class="blog-date">8 May,20</div>
-                     </div>
-                     <div class="blog-text">
-                         <h3>Harleys In Hawaai</h3>
-                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus alias dolore recusandae illum, corrupti quo 
-                             veniam saepe aliquid! Quis voluptates ratione consequuntur vel, perferendis cum provident? Magnam fugiat voluptas
-                              libero.</p>
-                     </div></a>
-                 </div>      
-                 <div class="blogs">
-                    <a href="#">
-                    <div class="img">
-                        <img src="images/post-two.jpg" alt="blog-two">
-                        <div class="blog-date">16 Jan,20</div>
-                    </div>
-                    <div class="blog-text">
-                        <h3>Key To Be Productive</h3>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt maiores, 
-                            recusandae cupiditate ducimus a non tempora, architecto obcaecati eaque ipsum assumenda harum dolorum iusto tenetur
-                             eius eligendi dolor magnam sit!</p>
-                    </div></a>
-                </div>      
-                <div class="blogs">
-                    <a href="#">
-                    <div class="img">
-                        <img src="images/post-three.jpg" alt="blog-three">
-                        <div class="blog-date">30 Nov,19</div>
-                    </div>
-                    <div class="blog-text">
-                        <h3>Caffeine Addict</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo nostrum impedit 
-                            ipsam perspiciatis ratione sapiente quasi optio reprehenderit, labore consequuntur suscipit cum quas.
-                             Officiis dolorem asperiores, ut necessitatibus quas doloremque?</p>
-                    </div></a>
-                </div>
-                <div class="blogs">
-                    <a href="#">
-                    <div class="img">
-                        <img src="images/post-four.jpg" alt="blog-four">
-                        <div class="blog-date">6 Jul,19</div>
-                    </div>
-                    <div class="blog-text">
-                        <h3>Web Development</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, veniam ratione quam vitae,
-                             quibusdam explicabo rem debitis velit ipsa repellat, impedit nulla fuga? Amet corporis praesentium quae.
-                              Sed, quibusdam necessitatibus.</p>
-                    </div></a>
-                </div>  
-                <div class="blogs">
-                    <a href="#">
-                    <div class="img">
-                        <img src="images/post-five.jpg" alt="blog-five">
-                        <div class="blog-date">1 Jun,19</div>
-                    </div>
-                    <div class="blog-text">
-                        <h3>Work From Home</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga sunt eum necessitatibus rem 
-                            dignissimos nulla mollitia cumque, provident officiis non vitae? Animi aut doloremque illum, soluta hic minus 
-                            sint explicabo..</p>
-                    </div></a>
-                </div>  
-                <div class="blogs">
-                    <a href="#">
-                    <div class="img">
-                        <img src="images/post-six.jpg" alt="blog-six">
-                        <div class="blog-date">28 Feb,19</div>
-                    </div>
-                    <div class="blog-text">
-                        <h3>Business Trip</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo tempora dolorum fuga ratione, unde, 
-                            ex quaerat iste numquam nemo nihil nobis rem sint quia recusandae dignissimos quos ut rerum nam.</p>
-                    </div></a>
-                </div>        
-            </div>
-               <!--copyright-section You Can Remove After Downloading-->
-               <div class="footer">
-                <div class="footer-text">
-                    <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Sumanth
-                </div>
-               </div>
-       <!--copyright-section-->
-        </div>
-        <!--blog end-->
-        <!--contact-->
-     <div id="contact">
-        <!-- <div class="color-changer">
-            <div class="color-panel">
-                <img src="images/gear.png" alt="">
-            </div>
-            <div class="color-selector">
-                <div class="heading">Custom Colors</div>
-                <div class="colors">
-                    <ul >
-                    <li>
-                        <a href="#0" class="color-red " title="color-red"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-purple" title="color-purple"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-malt" title="color-malt"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-green" title="color-green"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-blue" title="color-blue"></a>
-                    </li>
-                    <li>
-                        <a href="#0" class="color-orange" title="color-orange"></a>
-                    </li>
-                    </ul>
-                </div>
-            </div>
-            </div> -->
-         <div class="contact-header">Contact <span class="color"> Me</span>
-        <div class="contact-header-caption"> <span class="color"> Get</span> In Touch.</div></div>
-        <div class="contact-content">
-            <!--Contact form-->
-             <div class="contact-form">
-                 <div class="form-header">
-                     Message Me
-                 </div>
-                 <form id="myForm" action="#">
-                    <div class="input-line">
-                        <input  id="name" type="text" placeholder="Name" class="input-name">
-                        <input id="email" type="email" placeholder="Email"  class="input-name">
-                    </div>
-                    <input type="text" id="subject" placeholder="subject" class="input-subject">
-                    <textarea id ="body" class="input-textarea" placeholder="message"></textarea>
-                    <button type="button" id ="submit" value="send">Submit</button>
-                 </form>
-               
-             </div>
-            <!--Contact form-->
-            <!--Contact information-->
-             <div class="contact-info">
-                <div class="contact-info-header">
-                    Contact Info
-                </div>
-                <div class="contact-info-content">
-                <div class="contect-info-content-line">
-                    <img src="./images/icon-name.png" class="icon" alt="name-icon">
-                    <div class="contact-info-icon-text">
-                        <h6>Name</h6>
-                        <p>Sumanth N</p>
-                  </div>
-                </div>
-                <div class="contect-info-content-line">
-                  <img src="./images/icon-location.png" class="icon" alt="location-icon">
-                  <div class="contact-info-icon-text">
-                      <h6>Location</h6>
-                      <p>Shivamogga, India</p>
-                </div>
-              </div>
-              <div class="contect-info-content-line">
-                  <img src="./images/icon-phone.png" class="icon" alt="phone-icon">
-                  <div class="contact-info-icon-text">
-                      <h6>Call</h6>
-                      <p>+91 8618385988</p>
-                </div>
-              </div>
-              
-              <div class="contect-info-content-line">
-                  <img src="./images/icon-email.png" class="icon" alt="email-icon">
-                  <div class="contact-info-icon-text">
-                      <h6>Email</h6>
-                      <p>sumanthnamadevaofficial@gmail.com</p>
-                </div>
-              </div>
-                </div>
-            <!--Contact information end-->
-           </div>
-        </div>
-                    <!--copyright-section You Can Remove After Downloading-->
-                    <div class="footer">
-                        <div class="footer-text">
-                            <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Sumanth
-                        </div>
-                       </div>
-               <!--copyright-section-->
-     </div>
-        <!--contact end-->
+    <div id="journey-stage" class="journey-stage" aria-hidden="true">
+      <div id="journey-fallback">
+        <span>S.</span
+        ><img
+          id="journey-fallback-image"
+          src="images/process-drawing.svg"
+          alt=""
+          hidden
+        />
+      </div>
     </div>
-    <!--all the divisions-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/particles.js"></script>
-    <script src="js/particles.min.js"></script>
-    <script src="js/index.js"></script>
-    <!--particles script-->
-    <script>
-  particlesJS("particles", {"particles":{"number":{"value":40,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.5,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
-    </script>
-
-</body>
+    <main id="main" class="scroll-journey">
+      <section
+        class="hero journey-chapter"
+        id="home"
+        aria-labelledby="hero-title"
+        data-theme="dark"
+      >
+        <div class="journey-panel hero-panel">
+          <div class="hero-intro">
+            <h1 id="hero-title">
+              For the ideas that deserve<br />to be seen, felt,<br />and
+              <em>remembered.</em>
+            </h1>
+            <p>
+              I’m Sumanth. A software engineer<br />building applications, automation,<br />and interactive systems.
+            </p>
+          </div>
+          <div class="hero-bottom">
+            <span>SUMANTH N / SOFTWARE ENGINEER</span
+            ><a
+              href="#portfolio"
+              class="scroll-button"
+              aria-label="Scroll to work"
+              >↓</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="work journey-chapter"
+        id="portfolio"
+        aria-labelledby="work-title"
+        data-theme="light"
+      >
+        <div class="journey-panel work-panel">
+          <div class="reel-top">
+            <h2 id="work-title">01 / SELECTED WORLDS</h2>
+            <span>SCROLL THROUGH THE REEL</span>
+          </div>
+          <div class="work-navigation">
+            <button
+              class="gallery-arrow"
+              data-gallery-step="-1"
+              aria-label="Previous exhibit"
+            >
+              ←</button
+            ><button
+              class="gallery-arrow"
+              data-gallery-step="1"
+              aria-label="Next exhibit"
+            >
+              →
+            </button>
+          </div>
+          <div class="work-caption">
+            <div>
+              <span class="exhibit-kicker" id="hero-exhibit-number"
+                >EXHIBIT 03 / 05</span
+              ><strong id="hero-exhibit-title">Janvey</strong>
+            </div>
+            <button id="enter-gallery" class="underlined-button">
+              Enter the exhibition ↗
+            </button>
+          </div>
+          <div id="project-grid" hidden></div>
+        </div>
+      </section>
+      <section
+        class="process journey-chapter"
+        id="process"
+        aria-labelledby="process-title"
+        data-theme="dark"
+      >
+        <div class="journey-panel process-sticky">
+          <div class="process-top">
+            <span id="process-number">01 / 05</span>
+            <h2 id="process-title">
+              FROM THE FIRST THOUGHT TO THE FINAL DETAIL
+            </h2>
+          </div>
+          <div class="process-bottom">
+            <h3 id="process-step-title">Find the idea.</h3>
+            <p id="process-step-copy">
+              A conversation before a canvas. Understand the people, the
+              problem, and what a better experience could feel like.
+            </p>
+          </div>
+          <div
+            class="process-steps"
+            role="group"
+            aria-label="Explore the process"
+          >
+            <button
+              aria-label="Process step 1: Find the idea"
+              aria-pressed="true"
+              data-process="0"
+            >
+              <span>01</span></button
+            ><button
+              aria-label="Process step 2: Make it tangible"
+              aria-pressed="false"
+              data-process="1"
+            >
+              <span>02</span></button
+            ><button
+              aria-label="Process step 3: Give it character"
+              aria-pressed="false"
+              data-process="2"
+            >
+              <span>03</span></button
+            ><button
+              aria-label="Process step 4: Refine the experience"
+              aria-pressed="false"
+              data-process="3"
+            >
+              <span>04</span></button
+            ><button
+              aria-label="Process step 5: Put it in the world"
+              aria-pressed="false"
+              data-process="4"
+            >
+              <span>05</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section
+        class="about journey-chapter"
+        id="about"
+        aria-labelledby="about-title"
+        data-theme="dark"
+      >
+        <div class="journey-panel studio-panel">
+          <div class="studio-copy">
+            <p class="eyebrow">03 / THE PERSON BEHIND IT</p>
+            <h2 id="about-title">One curious mind.<br />Many ways to build.</h2>
+            <p>
+              I’m Sumanth N, a software engineer based in Shivamogga, India.
+              I build applications, automation tools, and interactive systems.
+            </p>
+            <p>
+              I enjoy solving practical problems, exploring how systems work,
+              and turning ideas into reliable software.
+            </p>
+            <a
+              class="underlined-button"
+              href="https://github.com/absolutelysumanth"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Explore my GitHub ↗</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="contact journey-chapter"
+        id="contact"
+        aria-labelledby="contact-title"
+        data-theme="light"
+      >
+        <div class="journey-panel contact-panel">
+          <div class="contact-intro">
+            <p class="eyebrow">04 / LET’S CONNECT</p>
+            <h2 id="contact-title">
+              What could we<br /><em>make together?</em>
+            </h2>
+          </div>
+          <div class="contact-orbit">
+            <a
+              class="contact-node node-linkedin"
+              data-contact-node="0"
+              href="https://www.linkedin.com/in/sumanth-n-7a4ab5185/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn ↗</a
+            ><a
+              class="contact-node node-email"
+              data-contact-node="1"
+              href="mailto:sumanthnamadevaofficial@gmail.com"
+              >Email ↗</a
+            ><button
+              id="copy-email"
+              class="contact-node node-copy"
+              data-contact-node="2"
+            >
+              Copy email ⧉</button
+            ><a
+              class="contact-node node-github"
+              data-contact-node="3"
+              href="https://github.com/absolutelysumanth"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub ↗</a
+            >
+          </div>
+          <p class="copy-status" id="copy-status" role="status"></p>
+          <footer class="site-footer">
+            <span>© <span id="year"></span> SUMANTH N</span
+            ><span>SHIVAMOGGA, INDIA</span
+            ><a href="#home">BACK TO THE BEGINNING ↑</a>
+          </footer>
+        </div>
+      </section>
+    </main>
+    <div id="hero-gallery-host" class="gallery-parking" hidden>
+      <div
+        id="gallery-stage"
+        class="gallery-stage"
+        tabindex="0"
+        role="group"
+        aria-label="Interactive 3D exhibition. Drag to move between exhibits, or use arrow keys."
+      >
+        <img
+          id="gallery-fallback"
+          src="images/exhibits/janvey.svg"
+          alt="Janvey exhibition poster"
+        /><span class="gallery-loading" id="gallery-loading"
+          >Preparing the exhibition…</span
+        >
+      </div>
+    </div>
+    <dialog
+      id="project-dialog"
+      class="exhibition-dialog"
+      aria-labelledby="dialog-title"
+    >
+      <div class="exhibition-toolbar">
+        <span
+          >SUMANTH N <span class="exhibition-slash">/</span> THE WORK
+          GALLERY</span
+        ><button id="close-dialog" aria-label="Close exhibition">
+          Close <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="exhibition-layout">
+        <div class="exhibition-viewport">
+          <div id="expanded-gallery-host"></div>
+          <div class="gallery-instructions" id="gallery-instructions">
+            DRAG THE SPACE TO MOVE BETWEEN EXHIBITS
+          </div>
+          <div class="exhibition-navigation">
+            <button
+              class="gallery-arrow"
+              data-gallery-step="-1"
+              aria-label="Previous exhibit"
+            >
+              ←</button
+            ><span id="gallery-position" aria-live="polite">03 / 05</span
+            ><button
+              class="gallery-arrow"
+              data-gallery-step="1"
+              aria-label="Next exhibit"
+            >
+              →
+            </button>
+          </div>
+        </div>
+        <aside class="exhibit-story">
+          <div id="dialog-content"></div>
+          <div
+            class="exhibition-map"
+            id="exhibition-map"
+            role="group"
+            aria-label="Choose an exhibit"
+          ></div>
+        </aside>
+      </div>
+    </dialog>
+  </body>
 </html>
