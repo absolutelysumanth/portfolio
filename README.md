@@ -10,7 +10,12 @@ Scroll normally through Home, Work, Process, About, and Contact. The page uses n
 
 The opening sculpture floats above an animated reflective water surface. Moving the pointer over the water creates travelling ripples; touch presses create an impulse too. The live opening hands over to a captured reel frame without rendering a second sculpture behind it. Studio components trace their individual line segments and assemble progressively before the camera moves through the finished room.
 
+The opening has a brief scarlet light sweep across the chrome, followed by a water ripple. Pointer movement gently steers the sculpture and its lighting. Click or tap the scene, or activate “Dip the diamond” with the keyboard, to lower the diamond to the water and float it back. A ripple starts at its contact point. Repeated activation during a dip is ignored; dragging or vertical scrolling does not trigger it. Reduced motion keeps the scene static and hides the dip control.
+
+
 Use the chapter menu for direct navigation. In Work, drag the reel or use the arrow buttons/keys. Enter the exhibition to explore the original museum scene and project stories. Escape closes it. The background journey pauses while the exhibition is open.
+
+The crimson edition adds red typographic accents and reflected colour on the water, stronger waves and pointer impulses, and a dark kinetic exhibition. Artwork frames float with layered backing plates; metallic sculptures rotate inside orbiting red rings. A reflective floor and repeating architectural portals give depth to the camera's banked transitions. Gallery animation is capped at roughly 30 frames per second, pauses offscreen, and respects reduced motion.
 
 ## Source
 

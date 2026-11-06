@@ -1,4 +1,6 @@
 import * as THREE from "./vendor/three.module.min.js";
+import { RoomEnvironment } from "./vendor/RoomEnvironment.js";
+import { Reflector } from "./vendor/Reflector.js";
 
 export function createGallery(host, projects, onSelect, initialIndex = 0) {
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -6,17 +8,23 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
   renderer.setPixelRatio(1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.35;
+  renderer.toneMappingExposure = 1.1;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.append(renderer.domElement);
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color("#dedbd3");
-  scene.fog = new THREE.Fog("#dedbd3", 19, 65);
+  scene.background = new THREE.Color("#0c0506");
+  scene.fog = new THREE.Fog("#0c0506", 18, 62);
+  const room = new RoomEnvironment();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(room, .06).texture;
+  room.dispose(); pmrem.dispose();
+  const redLight = new THREE.PointLight('#ff1424', 24, 22, 2);
+  redLight.position.set(-2, 3, 3); scene.add(redLight);
   const camera = new THREE.PerspectiveCamera(39, 1, 0.1, 100);
-  scene.add(new THREE.HemisphereLight("#fff8ed", "#8b8e89", 2.2));
-  const sunlight = new THREE.DirectionalLight("#fff6e5", 3.6);
+  scene.add(new THREE.HemisphereLight("#ece8ed", "#260407", 1.1));
+  const sunlight = new THREE.DirectionalLight("#fff6ee", 2.1);
   sunlight.position.set(4, 12, 9);
   sunlight.castShadow = true;
   sunlight.shadow.mapSize.set(2048, 1024);
@@ -34,9 +42,9 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
   scene.add(sunlight.target);
   const material = (color, roughness = 0.85, metalness = 0) =>
     new THREE.MeshStandardMaterial({ color, roughness, metalness });
-  const concrete = material("#cecac0");
-  const ivory = material("#eeeae0");
-  const charcoal = material("#2a2c29");
+  const concrete = material("#181719");
+  const ivory = material("#140b0d");
+  const charcoal = material("#09090b", .2, .7);
   const steel = material("#7b7e76", 0.35, 0.6);
   function box(w, h, d, mat, x, y, z) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
@@ -46,7 +54,10 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
     scene.add(mesh);
     return mesh;
   }
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 45), concrete);
+  const floor = new Reflector(new THREE.PlaneGeometry(100, 45), {
+    color: '#27232a', textureWidth: 1024, textureHeight: 1024,
+    clipBias: .005, multisample: 0,
+  });
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(15, -0.02, 0);
   floor.receiveShadow = true;
@@ -62,13 +73,33 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
   const loader = new THREE.TextureLoader();
   const screens = [];
   const sculptures = [];
+  const displayGroups = [];
+  const orbitRings = [];
+  const red = material('#e00920', .23, .65);
+  // Repeating red portals make the camera travel readable in depth.
+  for (let i = -1; i < projects.length + 1; i++) {
+    const x = i * 7.5;
+    box(.045, 6.3, .045, red, x-3.5, 3.15, -.6);
+    box(6.9, .045, .045, red, x, 6.3, -.6);
+    box(.045, .015, 13, red, x-3.5, .015, 1);
+  }
   projects.forEach((project, i) => {
     const x = i * 7.5;
     const frame = box(3.34, 4.45, 0.18, charcoal, x, 2.9, -1.3);
     frame.userData.index = i;
     screens.push(frame);
-    box(3.25, 0.07, 0.5, ivory, x, 0.64, -1.05);
-    const texture = loader.load(`images/exhibits/${project.id}.svg`, () =>
+    const display = new THREE.Group();
+    display.position.set(x, 2.9, -1.3); scene.add(display);
+    display.attach(frame); displayGroups.push(display);
+    const leaves = [];
+    for (let layer=0; layer<2; layer++) {
+      const leaf = new THREE.Mesh(new THREE.BoxGeometry(3.35,4.45,.035), layer===0 ? red : steel);
+      leaf.position.set(-.08-layer*.06,.05+layer*.04,-.20-layer*.13);
+      leaf.castShadow = true; display.add(leaf); leaves.push(leaf);
+    }
+    display.userData.leaves = leaves;
+    box(3.25, .07, .5, red, x, .64, -1.05);
+    const texture = loader.load(`images/exhibits/${project.id}.svg?v=red20261106`, () =>
       requestRender(),
     );
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -81,14 +112,15 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
     poster.userData.index = i;
     scene.add(poster);
     screens.push(poster);
+    display.attach(poster);
     // A small museum label, drawn at print resolution.
     const label = document.createElement("canvas");
     label.width = 768;
     label.height = 192;
     const ctx = label.getContext("2d");
-    ctx.fillStyle = "#eeeae0";
+    ctx.fillStyle = "#29262b";
     ctx.fillRect(0, 0, 768, 192);
-    ctx.fillStyle = "#2a2c29";
+    ctx.fillStyle = "#f1e9e9";
     ctx.font = "bold 38px Arial";
     ctx.fillText(project.number + " / " + project.name, 24, 65);
     ctx.font = "25px Arial";
@@ -113,22 +145,15 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
       shape = new THREE.TorusGeometry(0.45, 0.13, 16, 64, Math.PI * 1.6);
     if (i === 3) shape = new THREE.SphereGeometry(0.49, 40, 24);
     if (i === 4) shape = new THREE.ConeGeometry(0.52, 1.1, 5);
-    const colors = ["#b3503c", "#9da74b", "#b46f59", "#425599", "#59735b"];
-    const sculpture = new THREE.Mesh(shape, material(colors[i], 0.55, 0.12));
+    const colors = ["#d8051c", "#bfc5cd", "#ee1026", "#989eaa", "#920413"];
+    const sculpture = new THREE.Mesh(shape, material(colors[i], 0.18, 0.85));
     sculpture.position.set(x - 2.45, 1.5, 0.1);
     sculpture.castShadow = true;
     sculpture.rotation.set(0.15, 0.3, -0.1);
     scene.add(sculpture);
     sculptures.push(sculpture);
-    if (i === 1)
-      scene
-        .add(
-          new THREE.LineSegments(
-            new THREE.EdgesGeometry(shape),
-            new THREE.LineBasicMaterial({ color: "#505a30" }),
-          ),
-        )
-        .position.copy(sculpture.position);
+    const orbit = new THREE.Mesh(new THREE.TorusGeometry(.78, .012, 8, 80), red);
+    orbit.position.copy(sculpture.position); scene.add(orbit); orbitRings.push(orbit);
     box(0.065, 5.8, 0.065, steel, x + 3.1, 2.9, 2.5);
     box(1.3, 0.075, 0.16, charcoal, x + 2.55, 5.8, 2.5);
   });
@@ -146,23 +171,43 @@ export function createGallery(host, projects, onSelect, initialIndex = 0) {
   function frame(time) {
     raf = 0;
     if (!visible || document.hidden || !host.isConnected) return;
+    if (!reducedMotion && time-lastTime < 32) { requestRender(); return; }
     const delta = Math.min((time - lastTime) / 1000, 0.05) || 0.016;
     lastTime = time;
     const blend = reducedMotion ? 1 : 1 - Math.exp(-delta * 8);
     current += (target - current) * blend;
     const aspect = camera.aspect;
     const distance = aspect < 0.85 ? 12.6 : aspect < 1.15 ? 10.8 : 9.1;
-    const parallax = reducedMotion ? 0 : 0.2;
+    const parallax = reducedMotion ? 0 : .7;
+    const travel = Math.min(Math.abs(target-current), 1);
+    const t = reducedMotion ? 0 : time*.001;
+    displayGroups.forEach((display,i) => {
+      const active = Math.max(0, 1-Math.abs(current-i));
+      display.position.y = 2.9 + (reducedMotion ? 0 : Math.sin(t*.8+i)*.09);
+      display.rotation.y = reducedMotion ? 0 : Math.sin(t*.35+i)*.035 + pointerX*.09*active;
+      display.rotation.x = reducedMotion ? 0 : pointerY*.035*active;
+      display.userData.leaves.forEach((leaf,j) => {
+        leaf.position.x = -.08-j*.06 - active*(j+1)*.10;
+        leaf.position.z = -.20-j*.13 - active*(j+1)*.10;
+        leaf.rotation.z = active*(j+1)*.025;
+      });
+      sculptures[i].rotation.set(.15 + Math.sin(t*.4+i)*.15,t*.27+i*.6,-.1);
+      sculptures[i].position.y = 1.55 + Math.sin(t*1.1+i)*.12;
+      orbitRings[i].position.y = sculptures[i].position.y;
+      orbitRings[i].rotation.set(.8 + Math.sin(t*.3+i)*.35,t*.3+i,.3);
+    });
+    redLight.position.x = current*7.5 - 2;
+    camera.up.set(reducedMotion ? 0 : Math.sin((target-current)*1.2)*.045,1,0);
     camera.position.set(
       2.2 + pointerX * parallax,
-      3.3 - pointerY * parallax,
-      distance,
+      3.3 - pointerY * parallax + travel*.5,
+      distance + travel*2.5,
     );
     scene.position.x = -current * 7.5;
     lookAt.set(-0.1, 2.45, -0.8);
     camera.lookAt(lookAt);
     renderer.render(scene, camera);
-    if (Math.abs(target - current) > 0.0001) requestRender();
+    if (!reducedMotion || Math.abs(target - current) > 0.0001) requestRender();
   }
   function requestRender() {
     if (!raf && visible) raf = requestAnimationFrame(frame);

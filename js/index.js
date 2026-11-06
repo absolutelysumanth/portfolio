@@ -18,7 +18,7 @@ let lastTrigger;
 grid.innerHTML = projects
   .map(
     (p) =>
-      `<article class="project-card" data-type="${p.type}"><button class="project-open" data-project="${p.id}" aria-label="Explore ${p.name}${p.type === "concept" ? ", concept project" : ""}"><div class="exhibit-cover"><img src="images/exhibits/${p.id}.svg" alt="" loading="lazy" width="900" height="1200"><span class="cover-enter">View in exhibition ↗</span></div><div class="project-card-heading"><h3>${p.name}</h3>${p.type === "concept" ? '<span class="concept-label">CONCEPT</span>' : `<span>${p.domain}</span>`}</div><p>${p.description}</p></button></article>`,
+      `<article class="project-card" data-type="${p.type}"><button class="project-open" data-project="${p.id}" aria-label="Explore ${p.name}${p.type === "concept" ? ", concept project" : ""}"><div class="exhibit-cover"><img src="images/exhibits/${p.id}.svg?v=red20261106" alt="" loading="lazy" width="900" height="1200"><span class="cover-enter">View in exhibition ↗</span></div><div class="project-card-heading"><h3>${p.name}</h3>${p.type === "concept" ? '<span class="concept-label">CONCEPT</span>' : `<span>${p.domain}</span>`}</div><p>${p.description}</p></button></article>`,
   )
   .join("");
 
@@ -41,7 +41,7 @@ function selectExhibit(index, moveCamera = true) {
   }
   lastSelection = activeIndex;
   const p = projects[activeIndex];
-  fallback.src = `images/exhibits/${p.id}.svg`;
+  fallback.src = `images/exhibits/${p.id}.svg?v=red20261106`;
   fallback.alt = `${p.name} exhibition poster`;
   document.querySelector("#hero-exhibit-number").textContent =
     `EXHIBIT ${p.number} / 05`;
@@ -130,7 +130,7 @@ document.querySelectorAll("[data-filter]").forEach((button) =>
 selectExhibit(activeIndex);
 
 // The artwork and project stories remain available if WebGL is unavailable.
-import("./gallery.js")
+import("./gallery.js?v=toxic1")
   .then(({ createGallery }) => {
     gallery = createGallery(
       stage,
@@ -312,7 +312,7 @@ document.querySelectorAll("[data-process]").forEach((button) =>
   }),
 );
 updateJourneyUI({ id: "home", p: 0, mode: "dark" });
-import("./journey.js")
+import("./journey.js?v=sweep1")
   .then(({ createJourney }) => {
     journey = createJourney(journeyHost, projects, updateJourneyUI, (index) =>
       selectExhibit(index, false),
@@ -341,7 +341,7 @@ import("./journey.js")
         id === "process"
           ? "images/" + steps[index].image
           : id === "portfolio"
-            ? "images/exhibits/" + projects[activeIndex].id + ".svg"
+            ? "images/exhibits/" + projects[activeIndex].id + ".svg?v=red20261106"
             : "images/process-final.svg";
       journeyHost.dataset.chapter = id;
       updateJourneyUI({

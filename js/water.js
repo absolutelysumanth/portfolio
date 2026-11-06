@@ -7,15 +7,15 @@ const waveFunctions = `
   uniform vec4 uRipples[8];
   float waterHeight(vec2 p) {
     float t=uTime*uMotion;
-    float h=sin(p.x*.72+p.y*.23-t*.72)*.040;
-    h+=sin(p.x*1.41-p.y*.65+t*.53)*.022;
-    h+=sin(p.x*2.63+p.y*1.73-t*1.12)*.012;
+    float h=sin(p.x*.72+p.y*.23-t*.72)*.065;
+    h+=sin(p.x*1.41-p.y*.65+t*.53)*.035;
+    h+=sin(p.x*2.63+p.y*1.73-t*1.12)*.018;
     for(int i=0;i<8;i++) {
       float age=max(0.,uTime-uRipples[i].z);
       float d=length(p-uRipples[i].xy);
       float front=d-age*2.25;
       float envelope=exp(-front*front*.38)*exp(-age*.65);
-      h+=sin(d*8.2-age*7.4)*envelope*.025*uRipples[i].w*uMotion;
+      h+=sin(d*8.2-age*7.4)*envelope*.065*uRipples[i].w*uMotion;
     }
     return h*uMotion;
   }
@@ -70,7 +70,7 @@ export function createWater(reduced = false) {
         vec3 view=normalize(cameraPosition-vWorld);
         float fresnel=.62+.38*pow(1.-max(dot(n,view),0.),4.);
         vec4 uv=vUv;
-        uv.xy+=vec2(slope.x,-slope.y)*uv.w*.22;
+        uv.xy+=vec2(slope.x,-slope.y)*uv.w*.32;
         vec2 sampleUv=uv.xy/uv.w;
         float dispersion=.00055*length(slope);
         vec3 reflection;
@@ -84,9 +84,12 @@ export function createWater(reduced = false) {
         vec3 base=mix(vec3(.055,.065,.079),reflection,fresnel);
         base+=vec3(.38,.4,.43)*spec*.22;
         base+=vec3(.10,.105,.11)*streak*pow(1.-abs(dot(n,view)),3.)*.12;
+        float ribbon = exp(-pow((vWorld.x - 2.5 - sin(vWorld.z*.3+uTime*.35)*.8)/1.1,2.));
+        float broken = .35+.65*pow(.5+.5*sin(vWater.y*4.+h*16.-uTime*.8),3.);
+        base += vec3(.58,.002,.008)*ribbon*broken*(.25+length(slope)*2.)*exp(-abs(vWorld.z)*.045);
         float distanceToCamera=length(cameraPosition-vWorld);
         float horizon=smoothstep(25.,85.,distanceToCamera);
-        base=mix(base,vec3(.62,.65,.68),horizon*.68);
+        base=mix(base,vec3(.27,.025,.045),horizon*.68);
         gl_FragColor=vec4(base,1.);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
@@ -108,11 +111,11 @@ export function createWater(reduced = false) {
   let cursor = 0,
     lastRippleTime = -100,
     lastPoint = new THREE.Vector2(1000, 1000);
-  function ripple(x, z, time, strength = 1) {
+  function ripple(x, z, time, strength = 1, force = false) {
     if (
       reduced ||
-      time - lastRippleTime < 0.075 ||
-      lastPoint.distanceTo(new THREE.Vector2(x, -z)) < 0.1
+      (!force && (time - lastRippleTime < 0.075 ||
+      (time - lastRippleTime < 0.5 && lastPoint.distanceTo(new THREE.Vector2(x, -z)) < 0.1)))
     )
       return;
     uniforms.uRipples.value[cursor].set(x, -z, time, strength);

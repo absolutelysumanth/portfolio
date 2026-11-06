@@ -1,7 +1,7 @@
 import * as THREE from "./vendor/three.module.min.js";
-import { createWater } from "./water.js";
+import { createWater } from "./water.js?v=sweep1";
 import { RoomEnvironment } from "./vendor/RoomEnvironment.js";
-import { buildBlueprints } from "./blueprints.js";
+import { buildBlueprints } from "./blueprints.js?v=toxic5";
 
 export function createJourney(host, projects, onUpdate, onSelect) {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -29,7 +29,7 @@ export function createJourney(host, projects, onUpdate, onSelect) {
       side: THREE.BackSide,
       depthWrite: false,
       vertexShader: `varying vec3 vDirection;void main(){vDirection=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-      fragmentShader: `uniform float uSceneMix;varying vec3 vDirection;void main(){vec3 d=normalize(vDirection);float y=d.y;float band=exp(-abs(y)*11.);vec3 color=mix(vec3(.018,.022,.026),vec3(.91,.925,.93),band);float cloud=sin(d.x*5.+d.z*3.)*sin(d.y*13.+d.z*4.);color+=cloud*.035*band;gl_FragColor=vec4(mix(color,vec3(.75,.756,.765),uSceneMix),1.);}`,
+      fragmentShader: `uniform float uSceneMix;varying vec3 vDirection;void main(){vec3 d=normalize(vDirection);float y=d.y;float band=exp(-abs(y)*11.);vec3 color=mix(vec3(.018,.022,.026),vec3(.46,.045,.065),band);float cloud=sin(d.x*5.+d.z*3.)*sin(d.y*13.+d.z*4.);color+=cloud*.035*band;gl_FragColor=vec4(mix(color,vec3(.75,.756,.765),uSceneMix),1.);}`,
     }),
   );
   sky.material.uniforms.uSceneMix = { value: 0 };
@@ -38,9 +38,16 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   const key = new THREE.DirectionalLight("#ffffff", 3.5);
   key.position.set(-4, 9, 4);
   scene.add(key);
-  const rim = new THREE.DirectionalLight("#c6d0dc", 3);
+  const rim = new THREE.DirectionalLight("#ff1424", 4);
   rim.position.set(5, 4, -4);
   scene.add(rim);
+  const sweepLight = new THREE.SpotLight('#ff1424', 0, 16, .28, .85, 2);
+  sweepLight.position.set(-4,4,4);
+  scene.add(sweepLight, sweepLight.target);
+  const sweepUniforms = { position: {value:-3}, power: {value:0} };
+  let openingStart = null, openingRipple = false;
+  let followX = 0, followY = 0, dipStart = null, dipImpact = false, dipCount = 0;
+  let tapStart = null;
   const sculpture = new THREE.Group();
   const s = new THREE.Shape();
   s.moveTo(1.16, 1.42);
@@ -65,7 +72,7 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   });
   geometry.center();
   const face = new THREE.MeshPhysicalMaterial({
-    color: "#20252a",
+    color: "#240c10",
     metalness: 1,
     roughness: 0.17,
     clearcoat: 1,
@@ -78,6 +85,18 @@ export function createJourney(host, projects, onUpdate, onSelect) {
     roughness: 0.19,
     envMapIntensity: 2,
   });
+  // A narrow reflected-light band travels over the existing chrome surface.
+  for (const material of [face, side]) {
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.uSweepPosition = sweepUniforms.position;
+      shader.uniforms.uSweepPower = sweepUniforms.power;
+      shader.vertexShader = 'varying vec3 vSweepLocal;\n' + shader.vertexShader;
+      shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvSweepLocal=position;');
+      shader.fragmentShader = 'varying vec3 vSweepLocal;uniform float uSweepPosition;uniform float uSweepPower;\n' + shader.fragmentShader;
+      shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\nfloat scarletBand=exp(-pow((vSweepLocal.x+vSweepLocal.y*.22-uSweepPosition)/.16,2.));totalEmissiveRadiance+=vec3(.85,.006,.018)*scarletBand*uSweepPower;');
+    };
+    material.customProgramCacheKey = () => 'scarlet-sweep-v1';
+  }
   const mark = new THREE.Mesh(geometry, [face, side]);
   mark.position.set(-0.24, 2.12, 0);
   sculpture.add(mark);
@@ -94,10 +113,10 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   const diamond = new THREE.Mesh(
     new THREE.OctahedronGeometry(0.4, 0),
     new THREE.MeshPhysicalMaterial({
-      color: "#dce7ed",
+      color: "#f00821",
       metalness: 0.05,
       roughness: 0.04,
-      transmission: 0.74,
+      transmission: 0.25,
       thickness: 1.1,
       ior: 1.7,
       envMapIntensity: 2.5,
@@ -119,7 +138,7 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   const clamp = THREE.MathUtils.clamp;
   const mix = THREE.MathUtils.lerp;
   const smooth = (a, b, x) => THREE.MathUtils.smoothstep(x, a, b);
-  const lightColor = new THREE.Color("#bfc1c3");
+  const lightColor = new THREE.Color("#19090c");
   const blackColor = new THREE.Color("#040506");
   const shotCanvas = document.createElement("canvas");
   const shotContext = shotCanvas.getContext("2d");
@@ -163,7 +182,7 @@ export function createJourney(host, projects, onUpdate, onSelect) {
       queueMicrotask(request);
     }
     image.onload = draw;
-    image.src = "images/exhibits/" + project.id + ".svg";
+    image.src = "images/exhibits/" + project.id + ".svg?v=red20261106";
     draw();
     return texture;
   }
@@ -232,7 +251,7 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   );
   blobGroup.add(blob);
   const armMaterial = new THREE.MeshPhysicalMaterial({
-    color: "#0c0e11",
+    color: "#ab071d",
     metalness: 1,
     roughness: 0.15,
     envMapIntensity: 2.3,
@@ -373,6 +392,44 @@ export function createJourney(host, projects, onUpdate, onSelect) {
     const small = camera.aspect < 0.85;
     const { id, p } = state;
     water.update(reduced ? 0 : time * 0.001);
+    const liveOpening = id === 'home' && p < .38;
+    if (openingStart === null && liveOpening) openingStart = time;
+    const age = openingStart === null ? 0 : (time-openingStart)*.001;
+    const sweep = smooth(.1,1.75,age);
+    sweepUniforms.position.value = mix(-2.1,2.1,sweep);
+    sweepUniforms.power.value = reduced || !liveOpening ? 0 : Math.sin(sweep*Math.PI)*.9;
+    sweepLight.intensity = sweepUniforms.power.value*45;
+    sweepLight.position.x = mix(-4,4,sweep);
+    sweepLight.target.position.set(mix(-1.6,1.6,sweep),2.1,0);
+    const followBlend = reduced ? 1 : 1-Math.exp(-elapsed*3.5);
+    followX = mix(followX,px,followBlend); followY = mix(followY,py,followBlend);
+    if (liveOpening) {
+      key.position.set(-4+followX*2,9-followY*1.2,4);
+      rim.position.set(5+followX,4-followY,-4);
+    } else {
+      key.position.set(-4,9,4); rim.position.set(5,4,-4);
+      dipStart = null;
+    }
+    if (liveOpening && !reduced && !openingRipple && age >= 1.45) {
+      openingRipple = true; water.ripple(0,.2,time*.001,1.25,true);
+    }
+    let dip = 0;
+    if (dipStart !== null) {
+      const ageDip = (time-dipStart)*.001;
+      dip = ageDip < .55 ? smooth(0,.55,ageDip) : 1-smooth(.65,1.8,ageDip);
+      if (ageDip >= .55 && !dipImpact) {
+        dipImpact = true;
+        const point = new THREE.Vector3(1.8,.18,.55);
+        sculpture.updateMatrixWorld(true); sculpture.localToWorld(point);
+        water.ripple(point.x,point.z,time*.001,2.2,true);
+      }
+      if (ageDip >= 1.8) dipStart = null;
+    }
+    diamond.position.set(1.28+dip*.52,2.25-dip*2.07,.1+dip*.45);
+    diamond.rotation.set(.25+dip*.35,.45+(reduced ? 0 : time*.000035)+dip*.6,.15-dip*.2);
+    host.dataset.entryDip = dip.toFixed(3);
+    host.dataset.entryDipCount = String(dipCount);
+    host.dataset.entrySweep = sweepUniforms.power.value.toFixed(3);
     const openingHandoff = state.id === "home" && state.p >= 0.38;
     if (!shotReady || (openingHandoff && wasLiveOpening)) {
       sky.visible = true;
@@ -383,12 +440,12 @@ export function createJourney(host, projects, onUpdate, onSelect) {
       showBlueprints(false);
       sky.material.uniforms.uSceneMix.value = 0;
       sculpture.scale.setScalar(1);
-      sculpture.rotation.y = -0.18 + px * 0.12;
+      sculpture.rotation.y = -0.18 + (reduced ? 0 : followX * 0.26);
       sculpture.position.y =
         0.25 + (reduced ? 0 : Math.sin(time * 0.00065) * 0.045);
       cameraAt(
-        px * 0.2,
-        0.85 + py * 0.08,
+        followX * 0.2,
+        0.85 + followY * 0.08,
         small ? 16.5 : 11,
         0,
         small ? 3.8 : 0.85,
@@ -427,13 +484,13 @@ export function createJourney(host, projects, onUpdate, onSelect) {
         sculpture.visible = true;
         sky.material.uniforms.uSceneMix.value = 0;
         sculpture.scale.setScalar(1);
-        sculpture.rotation.y = -0.18 + px * 0.12;
+        sculpture.rotation.y = -0.18 + (reduced ? 0 : followX * 0.26);
         sculpture.position.y =
           0.25 + (reduced ? 0 : Math.sin(time * 0.00065) * 0.045);
-        diamond.rotation.y = 0.45 + (reduced ? 0 : time * 0.000035);
+        // Diamond pose is shared with the capture pass to keep the handoff continuous.
         cameraAt(
-          px * 0.2,
-          0.85 + py * 0.08,
+          followX * 0.2,
+          0.85 + followY * 0.08,
           small ? 16.5 : 11,
           0,
           small ? 3.8 : 0.85,
@@ -701,6 +758,27 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   window.addEventListener("pointermove", (e) => disturbWater(e), {
     passive: true,
   });
+  window.addEventListener('pointermove', (e) => {
+    if (state.id !== 'home') return;
+    px=e.clientX/innerWidth-.5; py=e.clientY/innerHeight-.5;
+    if (tapStart && Math.hypot(e.clientX-tapStart.x,e.clientY-tapStart.y)>12) tapStart=null;
+    request();
+  }, {passive:true});
+  function dipDiamond() {
+    if (reduced || state.id!=='home' || state.p>=.38 || dipStart!==null) return;
+    dipStart=performance.now(); dipImpact=false; dipCount++; request();
+  }
+  document.querySelector('#dip-diamond')?.addEventListener('click',dipDiamond);
+  window.addEventListener('pointerdown',(e)=>{
+    if (e.button!==0 || e.target.closest('a,button') || state.id!=='home' || state.p>=.38) return;
+    tapStart={x:e.clientX,y:e.clientY,scroll:scrollY};
+  },{passive:true});
+  window.addEventListener('pointerup',()=>{
+    if (tapStart && Math.abs(scrollY-tapStart.scroll)<8) dipDiamond();
+    tapStart=null;
+  },{passive:true});
+  window.addEventListener('pointercancel',()=>{tapStart=null;});
+  window.addEventListener('blur',()=>{tapStart=null;});
   host.addEventListener("pointermove", (e) => {
     px = e.clientX / innerWidth - 0.5;
     py = e.clientY / innerHeight - 0.5;
@@ -719,7 +797,6 @@ export function createJourney(host, projects, onUpdate, onSelect) {
   });
   host.addEventListener("pointerdown", (e) => {
     if (e.button === 0 && state.id === "home") {
-      disturbWater(e, 1.35);
       return;
     }
     if (e.button !== 0 || state.id !== "portfolio") return;

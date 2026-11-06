@@ -12,6 +12,7 @@ export function buildBlueprints() {
     const group = new THREE.Group();
     group.userData.lines = [];
     group.userData.material = wire();
+    group.userData.accentMaterial = wire("#ff2034");
     return group;
   }
   function edges(group, geometry, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) {
@@ -20,7 +21,9 @@ export function buildBlueprints() {
         geometry,
         /Sphere|Cylinder|Cone|Torus/.test(geometry.type) ? 1 : 25,
       ),
-      group.userData.material,
+      group.userData.richAccents && geometry.type === "SphereGeometry" && geometry.parameters.radius > 0.5
+        ? group.userData.accentMaterial
+        : group.userData.material,
     );
     object.position.set(x, y, z);
     object.rotation.set(rx, ry, rz);
@@ -51,6 +54,7 @@ export function buildBlueprints() {
         0,
       ]);
     const c = lines(g, points);
+    if (r <= 0.03 && !g.userData.richAccents) c.material = g.userData.accentMaterial;
     c.position.set(x, y, z);
     c.rotation.set(rx, ry, 0);
     return c;
@@ -125,7 +129,7 @@ export function buildBlueprints() {
     const t = i / 80;
     sketch.push([-1.3 + t * 2.5, -0.23, Math.sin(t * Math.PI * 2) * 0.55]);
   }
-  lines(desk, sketch);
+  lines(desk, sketch).material = desk.userData.accentMaterial;
   box(desk, 0.55, 0.17, 0.3, 0.8, -0.18, 0.95, 0, -0.2, 0);
 
   const frame = make();
@@ -148,7 +152,7 @@ export function buildBlueprints() {
     0.12,
   );
   ball.rotation.z = 0.2;
-  box(frame, 0.6, 0.2, 0.02, -1.1, -0.6, 0.08);
+  box(frame, 0.6, 0.2, 0.02, -1.1, -0.6, 0.08).material = frame.userData.accentMaterial;
 
   const material = make();
   edges(material, new THREE.SphereGeometry(0.95, 18, 10), 0, 0.1, 0);
@@ -177,14 +181,14 @@ export function buildBlueprints() {
   edges(material, new THREE.OctahedronGeometry(0.55), -1.4, 1.2, 0);
   box(material, 0.4, 0.4, 0.4, 1.4, 1.9, -0.1, 0, 0.2, 0.15);
   circle(material, 0.18, -0.7, -1.4, 0.7, Math.PI / 2);
-  box(material, 0.4, 0.07, 0.24, 0.3, -1.4, 0.8);
+  box(material, 0.4, 0.07, 0.24, 0.3, -1.4, 0.8).material = material.userData.accentMaterial;
 
   const detail = make();
   box(detail, 4.9, 0.08, 3.1, 0, -0.45, 0);
   grid(detail, 4.7, 2.9, 14, -0.39);
   circle(detail, 0.68, -0.65, 0.4, 0.1, 0, 0.1);
   circle(detail, 0.58, -0.65, 0.4, 0.1, 0, 0.1);
-  box(detail, 0.12, 1, 0.1, -1.1, -0.55, 0.15, 0, 0, -0.4);
+  box(detail, 0.12, 1, 0.1, -1.1, -0.55, 0.15, 0, 0, -0.4).material = detail.userData.accentMaterial;
   box(detail, 0.7, 0.9, 0.7, 1.25, 0.2, -0.7, 0.1, 0.35, 0);
   lines(detail, [
     [1.3, 0.75, -0.7],
@@ -223,6 +227,7 @@ export function buildBlueprints() {
   circle(launch, 0.22, 2.2, 1.5, -0.42);
 
   const room = make();
+  room.userData.richAccents = true;
   grid(room, 11, 8, 14, -1.5);
   box(room, 11, 0.05, 8, 0, -1.55, 0);
   box(room, 0.06, 5.5, 8, -5.5, 1.25, 0);
@@ -242,7 +247,7 @@ export function buildBlueprints() {
       0,
       ((i % 3) - 1) * 0.05,
     );
-  box(room, 4, 0.1, 1.8, 1, -0.05, -1);
+  box(room, 4, 0.1, 1.8, 1, -0.05, -1).material = room.userData.accentMaterial;
   box(room, 0.12, 1.45, 0.12, -0.8, -0.8, -1.7);
   box(room, 0.12, 1.45, 0.12, 2.8, -0.8, -1.7);
   box(room, 0.12, 1.45, 0.12, -0.8, -0.8, -0.2);
@@ -350,6 +355,7 @@ export function buildBlueprints() {
     group.visible = opacity > 0.005;
     if (!group.visible) return;
     group.userData.material.opacity = opacity;
+    group.userData.accentMaterial.opacity = opacity;
     group.userData.lines.forEach((line, lineIndex) => {
       const rank = lineIndex / Math.max(group.userData.lines.length - 1, 1);
       const localBuild = THREE.MathUtils.clamp(

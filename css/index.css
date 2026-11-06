@@ -4,7 +4,7 @@
   --ink: #eef0f2;
   --muted: #a8adb4;
   --line: #ffffff25;
-  --accent: #cbd4dd;
+  --accent: #ef344d;
   --font: "DM Sans", Arial, sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
   color-scheme: dark;
@@ -1901,3 +1901,45 @@ body {
     background: transparent;
   }
 }
+
+/* Crimson highlights connect the typography, water and exhibition. */
+.brand > span, .hero-intro h1 em, .exhibition-slash,
+.exhibit-story .eyebrow, .exhibit-story-section h3 { color: #ff2435; }
+.hero-intro h1 em { text-shadow: -.6px 0 #ffbcc4, .8px .2px #a50624; }
+.hero-bottom > span { border-left: 2px solid #ff1527; padding-left: 12px; }
+.contact-button { background: #ed0c24; color: #fff5f4; border: 1px solid #ff4653; }
+body.light-header .contact-button { background: #ed0c24; color: #fff5f4; }
+.contact-button:hover { background: #ff2639; color: white; }
+.site-menu a:hover, .underlined-button:hover { color: #fa5268; }
+.process-steps button[aria-pressed="true"], .process-steps button.active {
+  color: #ff3747; border-color: #ff1527;
+}
+.exhibition-viewport { background: #111013; }
+.exhibition-dialog { background: #0b0608; }
+.exhibit-story { background: linear-gradient(145deg, #30080f, #0b0608 65%); }
+.exhibit-story h2::after { content: ""; display: block; width: 42px; height: 3px; background: #ed304c; margin-top: 20px; }
+.gallery-instructions { background: #131115c9; color: #f5dfe5; border-left: 2px solid #dc2342; backdrop-filter: blur(12px); }
+.exhibition-navigation { background: #19151bd9; color: #f4ecef; border-color: #843143; backdrop-filter: blur(16px); }
+.exhibition-navigation .gallery-arrow { color: #f8e9ef; border-color: #79404c; }
+.exhibition-navigation .gallery-arrow:hover { background: #b5122f; color: #fff; }
+button:focus-visible, a:focus-visible { outline: 2px solid #f44963; outline-offset: 5px; }
+
+/* Toxic red: scarlet lacquer, carbon black and cold white type. */
+:root { --accent: #ff1527; --bg: #080506; --line: #ff324330; }
+body.light-header .site-header { color: #f5edef; }
+.journey-chapter.work, .journey-chapter.contact { color: #f5edef; }
+.contact-node { color: #f5edef; }
+.contact-panel .site-footer { color: #d7c5c9; border-color: #8b2534; }
+.contact-intro .eyebrow, .reel-top h2 { color: #ff3547; }
+.hero-intro h1 { text-shadow: -.7px 0 .35px #ff243575, .7px .3px .35px #ffe9eb88; }
+.hero-intro h1 em { color: #ff2034; text-shadow: -.6px 0 #ffc9ce, .8px .2px #8d0015; }
+.contact-button { border-radius: 5px; letter-spacing: 1px; }
+.site-menu { background: #100709ed; border-color: #8c1829; backdrop-filter: blur(18px); }
+.site-menu a[aria-current="page"] { color: #ff3044; }
+.exhibition-toolbar { border-bottom-color: #a3152c; }
+.exhibition-navigation { border-color: #dc1531; }
+::selection { background: #e90c29; color: white; }
+
+#dip-diamond { display: inline-block; margin-top: 9px; padding: 4px 0; background: transparent; color: #f4e7e9; border: 0; border-bottom: 1px solid #ec273c66; font: 500 12px/1.4 var(--font); cursor: pointer; letter-spacing: .2px; }
+#dip-diamond:hover { color: #ff4155; }
+@media (prefers-reduced-motion: reduce) { #dip-diamond { display:none; } }
